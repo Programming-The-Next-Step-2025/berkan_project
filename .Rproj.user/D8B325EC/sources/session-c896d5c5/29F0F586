@@ -3,7 +3,7 @@
     "path": "~/Documents/GitHub/berkan_project/R/week-2_functions.R",
     "project_path": "R/week-2_functions.R",
     "type": "r_source",
-    "hash": "0",
+    "hash": "50087261",
     "contents": "",
     "dirty": false,
     "created": 1747230713773.0,
@@ -13,15 +13,15 @@
         "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "116,50",
-        "scrollLine": "105"
+        "cursorPosition": "120,0",
+        "scrollLine": "107"
     },
     "folds": "",
-    "lastKnownWriteTime": 1747837310,
+    "lastKnownWriteTime": 1747907958,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1747837310226,
+    "last_content_update": 1747907958650,
     "read_only": false,
     "read_only_alternatives": []
 }

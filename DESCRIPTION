@@ -14,3 +14,7 @@ Imports:
     dplyr,
     rgbif,
     leaflet
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

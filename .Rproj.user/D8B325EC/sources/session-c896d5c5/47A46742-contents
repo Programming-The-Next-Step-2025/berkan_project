@@ -1,0 +1,109 @@
+---
+title: "Overview of urbanforaging"
+author: "Berkan Akin"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Overview of urbanforaging}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+**Introduction**
+
+In this vignette, we discuss the functionality of the R package *urbanforaging* which helps users explore and contribute to a map of edible wild plants in cities — with a focus on foraging in Amsterdam.
+
+This package lets users:
+
+- Add custom foraging locations (with species and notes)
+- Fetch plant occurrence data from GBIF
+
+This vignette demonstrates how to use these functions.
+
+---
+
+**Loading the Package**
+
+```{r library}
+library(urbanforaging)
+```
+
+---
+
+**1. Add a Foraging Location**
+
+The `add_foraging_location()` function lets you log new foraging spots (for crowd-sourcing locations or saving them for personal use)
+
+```{r add-location}
+# Create an empty base dataset
+df <- data.frame(
+  plant = character(),
+  lat = numeric(),
+  lon = numeric(),
+  month = character(),
+  notes = character(),
+  stringsAsFactors = FALSE
+)
+
+# Add an example observation
+df <- add_foraging_location(df, "Wild Garlic", 52.37, 4.89, "March", "Under the bridge")
+
+df
+```
+
+---
+
+**2. Query GBIF for Plant Observations**
+
+Use `get_gbif_occurrences_by_month()` to fetch species occurrence data from the Global Biodiversity Information Facility.
+
+```{r gbif}
+wild_garlic_gbif <- get_gbif_occurrences_by_month("Allium ursinum", c("March", "April"), limit = 10)
+head(wild_garlic_gbif)
+```
+
+It returns only observations with valid coordinates and dates, filtered by the specified months and limited to occurrences in the Netherlands.
+
+---
+
+**3. Map Results with Leaflet**
+
+Visualize GBIF results using the `leaflet` package:
+
+```{r map, eval = nrow(wild_garlic_gbif) > 0}
+leaflet::leaflet(wild_garlic_gbif) |>
+  leaflet::addTiles() |>
+  leaflet::addMarkers(
+    lng = ~decimalLongitude,
+    lat = ~decimalLatitude,
+    popup = ~scientificName
+  )
+```
+
+This simple map shows where species have been observed in the city.
+
+---
+
+**Package Dependencies**
+
+`urbanforaging` uses the following packages internally:
+
+- `dplyr` for data manipulation
+- `rgbif` for querying GBIF
+- `leaflet` for maps
+
+Be sure these are installed when using or deploying your package.
+
+---
+
+**Conclusion**
+
+The `urbanforaging` package makes it easier than ever to gather and visualize wild edible plant data in urban settings.
+
+Happy foraging 🌿
